@@ -17,7 +17,7 @@ nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    background-color: #3bd29b; /* Green */
+    background-color: #34d399; /* Green */
     overflow: hidden;
 }
 
@@ -42,20 +42,20 @@ section {
 }
 
 section#about {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Ensure space between content and image */
+    display: flex; /* Set as flex container */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Separate content and image */
 }
 
 section#about .content {
-    flex: 1; /* Take up equal space */
-    padding-right: 20px;
+    flex: 1; /* Take up remaining space */
+    padding-right: 20px; /* Space between content and image */
 }
 
 section#about img {
-    max-width: 200px;
-    border-radius: 50%;
-    flex: 0 0 auto; /* Ensure image does not stretch */
+    max-width: 200px; /* Limit image width */
+    border-radius: 50%; /* Round the image */
+    flex: 0 0 auto; /* Do not allow image to grow or shrink */
 }
 
 footer {
