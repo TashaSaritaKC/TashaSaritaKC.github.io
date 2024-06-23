@@ -17,7 +17,7 @@ nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    background-color: #2ece93; /* Green */
+    background-color: #34d399; /* Green */
     overflow: hidden;
 }
 
@@ -43,7 +43,7 @@ section {
 
 section#about img {
     max-width: 200px;
-    border-radius: 70%;
+    border-radius: 50%;
 }
 
 footer {
@@ -51,9 +51,8 @@ footer {
     color: white;
     text-align: center;
     padding: 10px 0;
-    width: 100%; /* Decrease width */
-    margin: 0 auto; /* Center the footer */
-    position: relative; /* Remove fixed position */
+    width: 100%; /* Full width */
+    position: relative; /* Ensure it's part of the flow */
     bottom: 0;
 }
 
