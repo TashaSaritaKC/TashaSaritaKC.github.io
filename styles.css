@@ -51,7 +51,7 @@ footer {
     color: white;
     text-align: center;
     padding: 10px 0;
-    width: 80%; /* Decrease width */
+    width: 100%; /* Decrease width */
     margin: 0 auto; /* Center the footer */
     position: relative; /* Remove fixed position */
     bottom: 0;
