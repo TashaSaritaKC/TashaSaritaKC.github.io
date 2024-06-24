@@ -32,7 +32,7 @@
             <p>Source: Kaggle- E-Commerce Sales Data</p>
 
             <h3>Data Cleaning Steps</h3>
-            <ol>
+            <ul>
                 <li>
                 <pre><code>library(readr)
 library(dplyr)
@@ -60,13 +60,13 @@ data$Qty <- as.numeric(data$Qty)</code></pre>
                 <li>
                 <pre><code>data <- data[data$Status != "Cancelled", ]</code></pre>
                 </li>
-            </ol>
+            </ul>
         </section>
 
         <section>
             <h2>Model Fitting</h2>
             <p>Post-cleansing, I aggregated sales by date for daily totals analysis, dividing the data into training (80%) and testing (20%) sets for model validation.</p>
-            <ol>
+            <ul>
                 <li>
                 <pre><code>sales_by_date <- data %>%
   group_by(Date) %>%
@@ -76,7 +76,7 @@ data$Qty <- as.numeric(data$Qty)</code></pre>
                 <pre><code>ggplot(sales_by_date, aes(x = Date, y = Total_Sales)) +
   geom_line(color = 'blue') +
   labs(title = "Total Sales Over Time", x = "Date", y = "Total Sales")</code></pre>
-                <img src="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Total Sales Over Time.png" alt="Total Sales Over Time">
+                <img src="Total Sales Over Time.png" alt="Total Sales Over Time">
                 </li>
                 <li>
                 <pre><code>threshold_date <- sales_by_date$Date[floor(0.8 * nrow(sales_by_date))]
@@ -92,9 +92,9 @@ test_data <- sales_by_date %>% filter(Date > threshold_date)</code></pre>
                 <li>Plot the Forecast:
                 <pre><code>autoplot(forecast_values) +
   labs(title = "Sales Forecast", x = "Date", y = "Total Sales")</code></pre>
-                <img src="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Sales Forecast.png" alt="Sales Forecast for next 30 days">
+                <img src="Sales Forecast.png" alt="Sales Forecast for next 30 days">
                 </li>
-            </ol>
+            </ul>
         </section>
 
         <section>
@@ -129,9 +129,9 @@ print(paste("MAPE:", round(mape, 2), "%"))</code></pre>
         <section>
             <h2>R Scripts</h2>
             <ul>
-                <li><a href="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Data cleaning script.R" target="_blank">Data Cleaning Script</a></li>
-                <li><a href="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Model Fitting Script.R" target="_blank">Model Fitting Script</a></li>
-                <li><a href="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Forecasting Script.R" target="_blank">Forecasting Script</a></li>
+                <li><a href="Data cleaning script.R" target="_blank">Data Cleaning Script</a></li>
+                <li><a href="Model Fitting Script.R" target="_blank">Model Fitting Script</a></li>
+                <li><a href="Forecasting Script.R" target="_blank">Forecasting Script</a></li>
             </ul>
         </section>
 
