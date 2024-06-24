@@ -1,0 +1,61 @@
+# Load necessary libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(forecast)
+
+# Load the data
+data <- read.csv("C:/Users/Tasha/Downloads/My/Projects/sales data analysis/datasets/Amazon Sale Report.csv", stringsAsFactors = FALSE)
+View(data)
+
+# Inspect the data
+str(data)
+summary(data)
+
+# Convert Date column to Date format
+data$Date <- as.Date(data$Date, format = "%m-%d-%y")
+
+# Handle missing values
+median_amount <- median(data$Amount, na.rm = TRUE)
+data$Amount[is.na(data$Amount)] <- median_amount
+
+# Convert Amount and Qty columns to numeric
+data$Amount <- as.numeric(data$Amount)
+data$Qty <- as.numeric(data$Qty)
+
+# Remove cancelled orders
+data <- data[data$Status != "Cancelled", ]
+
+# Total Sales by Date
+sales_by_date <- data %>%
+  group_by(Date) %>%
+  summarise(Total_Sales = sum(Amount * Qty))
+
+# Plot Total Sales over Time
+ggplot(sales_by_date, aes(x = Date, y = Total_Sales)) +
+  geom_line(color = 'blue') +
+  labs(title = "Total Sales Over Time", x = "Date", y = "Total Sales")
+
+# Calculate the 80% threshold date for splitting data
+threshold_date <- sales_by_date$Date[floor(0.8 * nrow(sales_by_date))]
+
+# Splitting the data into training (80%) and testing (20%)
+train_data <- sales_by_date %>% filter(Date <= threshold_date)
+test_data <- sales_by_date %>% filter(Date > threshold_date)
+
+# Fit an Exponential Smoothing model
+exp_smoothing_model <- ets(train_data$Total_Sales)
+
+# Forecast sales for the next 30 days
+forecast_values <- forecast(exp_smoothing_model, h = nrow(test_data))
+
+# Plot the forecast
+autoplot(forecast_values) +
+  labs(title = "Sales Forecast", x = "Date", y = "Total Sales")
+
+# Calculate Mean Absolute Percentage Error (MAPE)
+actual_values <- test_data$Total_Sales
+forecasted_values <- as.numeric(forecast_values$mean)
+
+mape <- mean(abs((actual_values - forecasted_values) / actual_values)) * 100
+print(paste("MAPE:", round(mape, 2), "%"))
