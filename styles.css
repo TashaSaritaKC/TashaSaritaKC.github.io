@@ -73,18 +73,30 @@ html {
 }
 
 .project {
+    display: flex;
     margin-bottom: 20px;
+    align-items: center;
 }
 
-.project img {
-    max-width: 100%;
+.project-thumbnail {
+    flex: 0 0 auto; /* Prevent thumbnail from growing or shrinking */
+    margin-right: 20px; /* Space between thumbnail and project details */
+}
+
+.project-thumbnail img {
+    max-width: 100%; /* Ensure thumbnail does not exceed container width */
     height: auto;
     border-radius: 5px;
 }
 
+.project-details {
+    flex: 1; /* Take up remaining space */
+}
+
 .project h3 {
     font-size: 18px;
-    margin-top: 10px;
+    margin-top: 0; /* Remove default margin */
+    margin-bottom: 10px;
 }
 
 .project p.description {
