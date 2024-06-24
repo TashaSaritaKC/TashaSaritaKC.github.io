@@ -79,7 +79,7 @@ html {
 }
 
 .project-thumbnail {
-    flex: 0 0 auto; /* Prevent thumbnail from growing or shrinking */
+    flex: 0 0 40%; /* Thumbnail takes up to 40% of container width */
     margin-right: 20px; /* Space between thumbnail and project details */
 }
 
@@ -102,4 +102,9 @@ html {
 .project p.description {
     font-size: 16px;
     line-height: 1.4;
+}
+
+/* Change color of links under project title */
+.project-title-nav ul li a {
+    color: #34d399; /* Green */
 }
