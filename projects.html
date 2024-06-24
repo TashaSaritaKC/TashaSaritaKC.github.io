@@ -33,32 +33,19 @@
 
             <h3>Data Cleaning Steps</h3>
             <ul>
-                <li>
-                <pre><code>library(readr)
-library(dplyr)
-library(ggplot2)
-library(forecast)</code></pre>
+                <li>Load Necessary Libraries: Crucial for utilizing R’s robust functions for data handling, visualization, and forecasting.
                 </li>
-                <li>
-                <pre><code>data <- read.csv("Amazon_Sale_Report.csv", stringsAsFactors = FALSE)</code></pre>
+                <li>Load the Data: Ensures accurate data input for reliable analysis.
                 </li>
-                <li>
-                <pre><code>str(data)
-summary(data)</code></pre>
+                <li>Inspect the Data: Offers a preliminary view to identify issues like missing values or incorrect formats.
                 </li>
-                <li>
-                <pre><code>data$Date <- as.Date(data$Date, format = "%m-%d-%y")</code></pre>
+                <li>Convert Date Column to Date Format: Aligns date formats for precise time series analysis.
                 </li>
-                <li>
-                <pre><code>median_amount <- median(data$Amount, na.rm = TRUE)
-data$Amount[is.na(data$Amount)] <- median_amount</code></pre>
+                <li>Handle Missing Values: Prevents skewed results due to missing data, using the median for robustness against outliers.
                 </li>
-                <li>
-                <pre><code>data$Amount <- as.numeric(data$Amount)
-data$Qty <- as.numeric(data$Qty)</code></pre>
+                <li>Convert Columns to Numeric: Guarantees accurate numerical operations on Amount and Qty.
                 </li>
-                <li>
-                <pre><code>data <- data[data$Status != "Cancelled", ]</code></pre>
+                <li>Remove Cancelled Orders: Excludes non-contributory orders to prevent distortion in sales forecasting.
                 </li>
             </ul>
         </section>
@@ -67,31 +54,18 @@ data$Qty <- as.numeric(data$Qty)</code></pre>
             <h2>Model Fitting</h2>
             <p>Post-cleansing, I aggregated sales by date for daily totals analysis, dividing the data into training (80%) and testing (20%) sets for model validation.</p>
             <ul>
-                <li>
-                <pre><code>sales_by_date <- data %>%
-  group_by(Date) %>%
-  summarise(Total_Sales = sum(Amount * Qty))</code></pre>
+                <li>Group Sales by Date: Aggregates daily sales, which is crucial for time series analysis.
                 </li>
-                <li>
-                <pre><code>ggplot(sales_by_date, aes(x = Date, y = Total_Sales)) +
-  geom_line(color = 'blue') +
-  labs(title = "Total Sales Over Time", x = "Date", y = "Total Sales")</code></pre>
+                <li>Plot Total Sales Over Time: Visualizes trends and patterns, providing insights into sales dynamics.
                 <img src="Total Sales Over Time.png" alt="Total Sales Over Time">
                 </li>
-                <li>
-                <pre><code>threshold_date <- sales_by_date$Date[floor(0.8 * nrow(sales_by_date))]
-train_data <- sales_by_date %>% filter(Date <= threshold_date)
-test_data <- sales_by_date %>% filter(Date > threshold_date)</code></pre>
+                <li>Split the Data: Ensures that the model is validated on unseen data, providing a realistic measure of its predictive performance.
                 </li>
-                <li>
-                <pre><code>exp_smoothing_model <- ets(train_data$Total_Sales)</code></pre>
+                <li>Fit an Exponential Smoothing Model: Applies exponential smoothing to capture the underlying trend and seasonal components of the sales data.
                 </li>
-                <li>
-                <pre><code>forecast_values <- forecast(exp_smoothing_model, h = nrow(test_data))</code></pre>
+                <li>Forecast Sales for the Next 30 Days: Predicts future sales, enabling proactive decision-making.
                 </li>
-                <li>Plot the Forecast:
-                <pre><code>autoplot(forecast_values) +
-  labs(title = "Sales Forecast", x = "Date", y = "Total Sales")</code></pre>
+                <li>Plot the Forecast
                 <img src="Sales Forecast.png" alt="Sales Forecast for next 30 days">
                 </li>
             </ul>
@@ -100,10 +74,7 @@ test_data <- sales_by_date %>% filter(Date > threshold_date)</code></pre>
         <section>
             <h2>Forecast Accuracy</h2>
             <p>To evaluate this model, I used the Mean Absolute Percentage Error (MAPE) metric. The analysis resulted in a MAPE of 15.13%, indicating a reasonably accurate forecast. This level of accuracy demonstrates the model’s potential in providing actionable insights for inventory and sales strategies.</p>
-            <pre><code>actual_values <- test_data$Total_Sales
-forecasted_values <- as.numeric(forecast_values$mean)
-mape <- mean(abs((actual_values - forecasted_values) / actual_values)) * 100
-print(paste("MAPE:", round(mape, 2), "%"))</code></pre>
+            
         </section>
 
         <section>
