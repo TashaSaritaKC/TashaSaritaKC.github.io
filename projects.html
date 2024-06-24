@@ -3,24 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Tasha's Portfolio</title>
+    <title>Forecasting Amazon Sales Using Time Series Analysis and Exponential Smoothing with R </title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Tasha's Projects</h1>
+        <h1>Amazon Sales Forecasting Project</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+        </nav>
     </header>
     <main>
-        <section id="project-forecasting-sales">
-            <h2>Forecasting Amazon Sales Using Time Series Analysis and Exponential Smoothing with R</h2>
-            <p>
-                In the dynamic landscape of e-commerce, predicting market movements is crucial. This project employs time series analysis and exponential smoothing techniques to forecast Amazon’s sales trends, facilitating informed inventory management and strategic planning.
-            </p>
-            <a href="https://medium.com/@tascy.sh/forecasting-amazon-sales-using-time-series-analysis-and-exponential-smoothing-with-r-98423d289ada" target="_blank">Read the full article on Medium</a>
+        <section>
+            <h2>Introduction</h2>
+            <p>In the dynamic landscape of e-commerce, predicting market movements is crucial. Time series analysis examines data points collected at successive time intervals to uncover trends and patterns. Exponential smoothing techniques, like Simple Exponential Smoothing (SES), Double Exponential Smoothing, and Triple Exponential Smoothing (Holt-Winters), refine these trends by incorporating various components such as level, trend, and seasonality. These methods are invaluable for e-commerce companies like Amazon, enabling them to optimize inventory, anticipate customer demand, and enhance strategic decision-making.</p>
+        </section>
+
+        <section>
+            <h2>Abstract</h2>
+            <p>This project employs time series analysis and exponential smoothing to forecast Amazon’s sales trends, facilitating informed inventory management and strategic planning. Mean Absolute Percentage Error (MAPE) evaluates forecast accuracy, ensuring actionable insights for operational efficiency.</p>
+        </section>
+
+        <section>
+            <h2>Project Description</h2>
+            <h3>Data Analysis and Preparation</h3>
+            <p>The journey began with acquiring and preparing the dataset. Historical sales data from Amazon was meticulously cleaned and transformed to ensure accuracy. This involved handling missing values, normalizing the data, and removing any irrelevant or redundant information. This step was crucial for ensuring the integrity and reliability of the subsequent analysis.</p>
+            <p>Source: Kaggle- E-Commerce Sales Data</p>
+
+            <h3>Data Cleaning Steps</h3>
+            <ol>
+                <li>
+                <pre><code>library(readr)
+library(dplyr)
+library(ggplot2)
+library(forecast)</code></pre>
+                </li>
+                <li>
+                <pre><code>data <- read.csv("Amazon_Sale_Report.csv", stringsAsFactors = FALSE)</code></pre>
+                </li>
+                <li>
+                <pre><code>str(data)
+summary(data)</code></pre>
+                </li>
+                <li>
+                <pre><code>data$Date <- as.Date(data$Date, format = "%m-%d-%y")</code></pre>
+                </li>
+                <li>
+                <pre><code>median_amount <- median(data$Amount, na.rm = TRUE)
+data$Amount[is.na(data$Amount)] <- median_amount</code></pre>
+                </li>
+                <li>
+                <pre><code>data$Amount <- as.numeric(data$Amount)
+data$Qty <- as.numeric(data$Qty)</code></pre>
+                </li>
+                <li>
+                <pre><code>data <- data[data$Status != "Cancelled", ]</code></pre>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Model Fitting</h2>
+            <p>Post-cleansing, I aggregated sales by date for daily totals analysis, dividing the data into training (80%) and testing (20%) sets for model validation.</p>
+            <ol>
+                <li>
+                <pre><code>sales_by_date <- data %>%
+  group_by(Date) %>%
+  summarise(Total_Sales = sum(Amount * Qty))</code></pre>
+                </li>
+                <li>
+                <pre><code>ggplot(sales_by_date, aes(x = Date, y = Total_Sales)) +
+  geom_line(color = 'blue') +
+  labs(title = "Total Sales Over Time", x = "Date", y = "Total Sales")</code></pre>
+                <img src="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Total Sales Over Time.png" alt="Total Sales Over Time">
+                </li>
+                <li>
+                <pre><code>threshold_date <- sales_by_date$Date[floor(0.8 * nrow(sales_by_date))]
+train_data <- sales_by_date %>% filter(Date <= threshold_date)
+test_data <- sales_by_date %>% filter(Date > threshold_date)</code></pre>
+                </li>
+                <li>
+                <pre><code>exp_smoothing_model <- ets(train_data$Total_Sales)</code></pre>
+                </li>
+                <li>
+                <pre><code>forecast_values <- forecast(exp_smoothing_model, h = nrow(test_data))</code></pre>
+                </li>
+                <li>Plot the Forecast:
+                <pre><code>autoplot(forecast_values) +
+  labs(title = "Sales Forecast", x = "Date", y = "Total Sales")</code></pre>
+                <img src="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Sales Forecast.png" alt="Sales Forecast for next 30 days">
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Forecast Accuracy</h2>
+            <p>To evaluate this model, I used the Mean Absolute Percentage Error (MAPE) metric. The analysis resulted in a MAPE of 15.13%, indicating a reasonably accurate forecast. This level of accuracy demonstrates the model’s potential in providing actionable insights for inventory and sales strategies.</p>
+            <pre><code>actual_values <- test_data$Total_Sales
+forecasted_values <- as.numeric(forecast_values$mean)
+mape <- mean(abs((actual_values - forecasted_values) / actual_values)) * 100
+print(paste("MAPE:", round(mape, 2), "%"))</code></pre>
+        </section>
+
+        <section>
+            <h2>Key Insights</h2>
+            <p><strong>Sales Trends Over Time:</strong> The “Total Sales Over Time” plot revealed significant trends from April to July. April saw a notable rise in sales, likely due to specific marketing campaigns or seasonal demand. However, fluctuations were observed towards the end of June, highlighting the dynamic nature of e-commerce sales.</p>
+            <p><strong>Sales Forecast:</strong> The “Sales Forecast” plot predicts sales for the next 30 days. While the forecast shows a wider confidence interval (typical in time series data), it still offers valuable insights. Continuous model refinement and additional data incorporation can further improve this accuracy.</p>
+        </section>
+
+        <section>
+            <h2>Recommendations</h2>
+            <p><strong>Inventory Management:</strong> Utilize the sales forecasts to optimize inventory levels. By anticipating peaks and troughs in sales, businesses can ensure sufficient stock during high-demand periods while minimizing excess inventory during low-demand phases. This approach reduces storage costs and minimizes the risk of stockouts or overstock situations.</p>
+            <p><strong>Strategic Planning:</strong> Align marketing and promotional activities with the predicted sales trends. By understanding when sales are likely to peak, businesses can schedule their campaigns to maximize impact and revenue. Similarly, identifying low-sales periods can help in planning promotions to boost demand.</p>
+            <p><strong>Model Improvement:</strong> Continuously update the model with new sales data to enhance accuracy and reduce the confidence interval. As more data becomes available, the model can better learn from past trends and provide more precise forecasts. Regular model evaluation and refinement are essential to maintain its relevance and reliability.</p>
+        </section>
+
+        <section>
+            <h2>Conclusion</h2>
+            <p>Accurately forecasting sales is a powerful tool for e-commerce businesses. By leveraging time series analysis and exponential smoothing techniques, I have demonstrated a method to predict future sales trends with reasonable accuracy. This project underscores the importance of data-driven decision-making in inventory management and strategic planning, offering valuable insights for businesses looking to stay ahead in a competitive market.</p>
+            <p>Whether you’re a data enthusiast or a business leader, embracing predictive modeling can transform how you approach sales forecasting and strategic planning. By continuously refining these models and integrating them into your decision-making processes, you can unlock new opportunities for growth and efficiency.</p>
+            <p>Happy Forecasting!</p>
+        </section>
+
+        <section>
+            <h2>R Scripts</h2>
+            <ul>
+                <li><a href="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Data cleaning script.R" target="_blank">Data Cleaning Script</a></li>
+                <li><a href="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Model Fitting Script.R" target="_blank">Model Fitting Script</a></li>
+                <li><a href="C:\Users\Tasha\Downloads\My\tasha-portfolio\TashaSaritaKC.github.io\Forecasting Script.R" target="_blank">Forecasting Script</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Reference</h2>
+            <p>Hyndman, R.J., & Athanasopoulos, G. (2018). Forecasting: principles and practice (2nd ed.). OTexts: Melbourne, Australia. Available online at: <a href="https://otexts.com/fpp2/" target="_blank">https://otexts.com/fpp2/</a></p>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Sarita (Tasha) Krishan Chand</p>
+        <p>&copy; 2024 Sarita (TASHA) Krishan Chand. All rights reserved.</p>
     </footer>
 </body>
 </html>
