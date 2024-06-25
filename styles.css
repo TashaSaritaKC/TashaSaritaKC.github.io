@@ -72,11 +72,16 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Adjustments to styles.css */
+
 .project {
     display: flex; /* Set as flex container */
-    align-items: center; /* Center items vertically */
+    align-items: flex-start; /* Align items at the top */
     margin-bottom: 20px; /* Space between projects */
-    justify-content: space-between; /* Separate thumbnail and description */
+}
+
+.project h3 {
+    margin-top: 0; /* Remove top margin for the project title */
 }
 
 .project-thumbnail {
@@ -112,4 +117,29 @@ html {
 .plot-item img {
     max-width: 100%; /* Ensure image fits within its container */
     height: auto; /* Maintain aspect ratio */
+}
+
+/* Add these styles to your existing CSS */
+
+section#model-fitting {
+    display: flex; /* Set as flex container */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Separate content and plots */
+    flex-wrap: wrap; /* Allow content to wrap if necessary */
+}
+
+section#model-fitting .plots-container {
+    flex-basis: 100%; /* Full width for plots container */
+    margin-top: 20px; /* Space above plots */
+}
+
+section#model-fitting .plot-item {
+    flex: 1 0 45%; /* Plots take up 45% of the container */
+    text-align: center; /* Center-align text and images */
+}
+
+.section-title {
+    flex-basis: 100%; /* Full width for section titles */
+    text-align: center; /* Center-align section titles */
+    margin-bottom: 20px; /* Space below section titles */
 }
