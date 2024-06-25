@@ -72,8 +72,6 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Adjustments to styles.css */
-
 .project {
     display: flex; /* Set as flex container */
     align-items: flex-start; /* Align items at the top */
@@ -100,7 +98,7 @@ html {
     padding-left: 20px; /* Space between thumbnail and description */
 }
 
-.project-description h3 {
+.project-description h4 {
     margin-top: 0; /* Remove top margin for the description header */
 }
 
