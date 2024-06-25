@@ -73,14 +73,6 @@ html {
 }
 
 .project {
-    display: flex; /* Set as flex container */
-    align-items: flex-start; /* Align items at the top */
-    margin-bottom: 20px; /* Space between projects */
-}
-
-.project {
-    display: flex; /* Set as flex container */
-    align-items: flex-start; /* Align items at the top */
     margin-bottom: 20px; /* Space between projects */
 }
 
@@ -89,19 +81,19 @@ html {
 }
 
 .project-thumbnail {
-    flex: 0 0 45%; /* Thumbnail takes up 45% of the container */
+    float: left; /* Float thumbnail to the left */
+    width: 45%; /* Set thumbnail width */
+    margin-right: 20px; /* Space between thumbnail and description */
 }
 
 .project-thumbnail img {
     max-width: 100%; /* Ensure image fits within its container */
-    width: 100%; /* Ensure image fits within its container */
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px; /* Optional: Round the corners */
 }
 
 .project-description {
-    flex: 1; /* Description takes up remaining space */
-    padding-left: 20px; /* Space between thumbnail and description */
+    overflow: hidden; /* Clear the float */
 }
 
 .project-description h4 {
