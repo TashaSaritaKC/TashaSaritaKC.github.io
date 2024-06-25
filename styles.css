@@ -39,6 +39,7 @@ nav ul li a:hover {
 
 section {
     padding: 20px;
+    margin-bottom: 40px; /* Space between sections */
 }
 
 section#about {
@@ -68,21 +69,14 @@ footer {
     bottom: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 .project {
+    display: flex; /* Set as flex container */
+    align-items: center; /* Center items vertically */
     margin-bottom: 20px; /* Space between projects */
 }
 
-.project h3 {
-    margin-top: 0; /* Remove top margin for the project title */
-}
-
 .project-thumbnail {
-    float: left; /* Float thumbnail to the left */
-    width: 45%; /* Set thumbnail width */
+    flex: 0 0 45%; /* Thumbnail takes up 45% of the container */
     margin-right: 20px; /* Space between thumbnail and description */
 }
 
@@ -93,7 +87,7 @@ html {
 }
 
 .project-description {
-    overflow: hidden; /* Clear the float */
+    flex: 1; /* Description takes up remaining space */
 }
 
 .project-description h4 {
@@ -115,30 +109,10 @@ html {
     height: auto; /* Maintain aspect ratio */
 }
 
-/* Section title styles */
-.section-title {
-    flex-basis: 100%; /* Full width for section titles */
-    text-align: center; /* Center-align section titles */
-    margin-bottom: 20px; /* Space below section titles */
+.contact-info {
+    padding-left: 20px; /* Space between contact info and section title */
 }
 
-/* Model Fitting section styles */
-section#model-fitting {
-    display: flex; /* Set as flex container */
-    align-items: center; /* Center items vertically */
-    justify-content: space-between; /* Separate content and plots */
-    flex-wrap: wrap; /* Allow content to wrap if necessary */
-    padding: 20px; /* Padding around the section */
-}
-
-section#model-fitting .plots-container {
-    flex-basis: 100%; /* Full width for plots container */
-    margin-top: 20px; /* Space above plots */
-    display: flex; /* Align plots in a single line */
-    justify-content: center; /* Center plots horizontally */
-    gap: 20px; /* Space between the plots */
-}
-
-section#model-fitting .plot-item {
-    text-align: center; /* Center-align text and images */
+.contact-info p {
+    margin-top: 0; /* Remove top margin for paragraphs */
 }
