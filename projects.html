@@ -57,25 +57,32 @@
                 <li>Group Sales by Date: Aggregates daily sales, which is crucial for time series analysis.
                 </li>
                 <li>Plot Total Sales Over Time: Visualizes trends and patterns, providing insights into sales dynamics.
-                <img src="Total Sales Over Time.png" alt="Total Sales Over Time">
                 </li>
+                <div class="plots-container">
+                    <div class="plot-item">
+                        <h3>Plot Total Sales Over Time</h3>
+                        <img src="Total Sales Over Time.png" alt="Total Sales Over Time">
+                    </div>
+                </div>
                 <li>Split the Data: Ensures that the model is validated on unseen data, providing a realistic measure of its predictive performance.
                 </li>
                 <li>Fit an Exponential Smoothing Model: Applies exponential smoothing to capture the underlying trend and seasonal components of the sales data.
                 </li>
                 <li>Forecast Sales for the Next 30 Days: Predicts future sales, enabling proactive decision-making.
                 </li>
-                <li>Plot the Forecast
-                    
-                <img src="Sales Forecast.png" alt="Sales Forecast for next 30 days">
-                </li>
+                <div class="plots-container">
+                    <div class="plot-item">
+                        <h3>Plot the Forecast</h3
+                            <img src="Sales Forecast.png" alt="Sales Forecast for next 30 days">
+                    </div>
+                </div>
             </ul>
         </section>
 
         <section>
             <h2>Forecast Accuracy</h2>
             <p>To evaluate this model, I used the Mean Absolute Percentage Error (MAPE) metric. The analysis resulted in a MAPE of 15.13%, indicating a reasonably accurate forecast. This level of accuracy demonstrates the model’s potential in providing actionable insights for inventory and sales strategies.</p>
-
+        
         </section>
 
         <section>
@@ -113,7 +120,7 @@
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Sarita (TASHA) Krishan Chand. All rights reserved.</p>
+        <p>&copy; 2024 Tasha Sharma. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
 </body>

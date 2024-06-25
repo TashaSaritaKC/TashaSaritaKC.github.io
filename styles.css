@@ -98,3 +98,18 @@ html {
 .project-description h3 {
     margin-top: 0; /* Remove top margin for the description header */
 }
+
+.plots-container {
+    display: flex; /* Align plots in a single line */
+    justify-content: center; /* Center plots horizontally */
+    gap: 20px; /* Space between the plots */
+}
+
+.plot-item {
+    text-align: center; /* Center-align text and images */
+}
+
+.plot-item img {
+    max-width: 100%; /* Ensure image fits within its container */
+    height: auto; /* Maintain aspect ratio */
+}
