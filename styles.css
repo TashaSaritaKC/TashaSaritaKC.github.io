@@ -78,6 +78,12 @@ html {
     margin-bottom: 20px; /* Space between projects */
 }
 
+.project {
+    display: flex; /* Set as flex container */
+    align-items: flex-start; /* Align items at the top */
+    margin-bottom: 20px; /* Space between projects */
+}
+
 .project h3 {
     margin-top: 0; /* Remove top margin for the project title */
 }
