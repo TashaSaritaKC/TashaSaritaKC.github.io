@@ -115,27 +115,30 @@ html {
     height: auto; /* Maintain aspect ratio */
 }
 
-/* Add these styles to your existing CSS */
+/* Section title styles */
+.section-title {
+    flex-basis: 100%; /* Full width for section titles */
+    text-align: center; /* Center-align section titles */
+    margin-bottom: 20px; /* Space below section titles */
+}
 
+/* Model Fitting section styles */
 section#model-fitting {
     display: flex; /* Set as flex container */
     align-items: center; /* Center items vertically */
     justify-content: space-between; /* Separate content and plots */
     flex-wrap: wrap; /* Allow content to wrap if necessary */
+    padding: 20px; /* Padding around the section */
 }
 
 section#model-fitting .plots-container {
     flex-basis: 100%; /* Full width for plots container */
     margin-top: 20px; /* Space above plots */
+    display: flex; /* Align plots in a single line */
+    justify-content: center; /* Center plots horizontally */
+    gap: 20px; /* Space between the plots */
 }
 
 section#model-fitting .plot-item {
-    flex: 1 0 45%; /* Plots take up 45% of the container */
     text-align: center; /* Center-align text and images */
-}
-
-.section-title {
-    flex-basis: 100%; /* Full width for section titles */
-    text-align: center; /* Center-align section titles */
-    margin-bottom: 20px; /* Space below section titles */
 }
