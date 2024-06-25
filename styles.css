@@ -73,38 +73,26 @@ html {
 }
 
 .project {
-    display: flex;
-    margin-bottom: 20px;
-    align-items: center;
+    display: flex; /* Set as flex container */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space between projects */
+    justify-content: space-between; /* Separate thumbnail and description */
 }
 
 .project-thumbnail {
-    flex: 0 0 40%; /* Thumbnail takes up to 40% of container width */
-    margin-right: 20px; /* Space between thumbnail and project details */
+    flex: 0 0 45%; /* Thumbnail takes up 45% of the container */
 }
 
 .project-thumbnail img {
-    max-width: 100%; /* Ensure thumbnail does not exceed container width */
-    height: auto;
-    border-radius: 5px;
+    max-width: 100%; /* Ensure image fits within its container */
+    border-radius: 5px; /* Optional: Round the corners */
 }
 
-.project-details {
-    flex: 1; /* Take up remaining space */
+.project-description {
+    flex: 1; /* Description takes up remaining space */
+    padding-left: 20px; /* Space between thumbnail and description */
 }
 
-.project h3 {
-    font-size: 18px;
-    margin-top: 0; /* Remove default margin */
-    margin-bottom: 10px;
-}
-
-.project p.description {
-    font-size: 16px;
-    line-height: 1.4;
-}
-
-/* Change color of links under project title */
-.project-title-nav ul li a {
-    color: #34d399; /* Green */
+.project-description h3 {
+    margin-top: 0; /* Remove top margin for the description header */
 }
